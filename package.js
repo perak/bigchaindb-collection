@@ -1,10 +1,10 @@
 Package.describe({
   name: "bigchaindb-collection",
-  version: "0.0.1",
+  version: "1.0.0",
   // Brief, one-line summary of the package.
   summary: "Use BigchainDB in your Meteor application just like you are using Mongo",
   // URL to the Git repository containing the source code for this package.
-  git: "",
+  git: "https://github.com/perak/bigchaindb-collection.git",
   // By default, Meteor will default to using README.md for documentation.
   // To avoid submitting documentation, set this field to null.
   documentation: "README.md"
@@ -34,4 +34,3 @@ Npm.depends({
     "utf-8-validate": "4.0.0",
     "ws": "4.0.0"
 });
-
