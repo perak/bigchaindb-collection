@@ -23,7 +23,7 @@ Package.onUse(function(api) {
 Package.onTest(function(api) {
   api.use("ecmascript");
   api.use("tinytest");
-  api.use("bigchaindb-collection");
+  api.use("perak:bigchaindb-collection");
   api.mainModule("bigchaindb-collection-tests.js");
 });
 
