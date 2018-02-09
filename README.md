@@ -25,10 +25,10 @@ Your application is still reading and writing to Mongo. Anything you write into 
 
 **Step 1**
 
-Add `bigchaindb-collection` package to your application
+Add `perak:bigchaindb-collection` package to your application
 
 ```
-meteor add bigchaindb-collection
+meteor add perak:bigchaindb-collection
 ```
 
 **Step 2**

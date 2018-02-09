@@ -1,5 +1,5 @@
 Package.describe({
-  name: "bigchaindb-collection",
+  name: "perak:bigchaindb-collection",
   version: "1.0.0",
   // Brief, one-line summary of the package.
   summary: "Use BigchainDB in your Meteor application just like you are using Mongo",
