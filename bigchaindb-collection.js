@@ -194,23 +194,13 @@ export class BDBCollection extends Mongo.Collection {
 				doc._transactionStatus = "pending";
 			});
 
-			this.after.insert(function() {
+			this.after.insert(function(userId, doc) {
 				if(!self.bdbConnection || !self.bdbConnection.connection) {
 					console.log("BigchainDB Collection \"" + self._name + "\" is not registered or no connection to BigchainDB server.");
 					return;
 				}
 
-				// somehow no arguments, so extract them from this.args
-				let userId = null;
-				let doc = null;
-				if(this.args.length > 1) {
-					userId = this.args[0];
-					doc = this.args[1];
-				} else {
-					doc = this.args[this.args.length - 1];
-				}
-
-				if(doc._transactionId) {
+				if(!doc || doc._transactionId) {
 					return;
 				}
 

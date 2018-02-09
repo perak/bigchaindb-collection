@@ -1,6 +1,6 @@
 Package.describe({
   name: "perak:bigchaindb-collection",
-  version: "1.0.1",
+  version: "1.0.2",
   // Brief, one-line summary of the package.
   summary: "Use BigchainDB in your Meteor application just like you are using Mongo",
   // URL to the Git repository containing the source code for this package.
@@ -18,6 +18,9 @@ Package.onUse(function(api) {
   api.use("matb33:collection-hooks@0.8.4");
 
   api.mainModule("bigchaindb-collection.js");
+
+  api.export("BDBConnection");
+  api.export("BDBCollection");
 });
 
 Package.onTest(function(api) {
