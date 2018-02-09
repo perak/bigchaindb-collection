@@ -15,7 +15,7 @@ Package.onUse(function(api) {
   api.use("ecmascript");
 
   api.use("mongo");
-  api.use("matb33:collection-hooks");
+  api.use("matb33:collection-hooks@0.8.4");
 
   api.mainModule("bigchaindb-collection.js");
 });
