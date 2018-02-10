@@ -36,7 +36,6 @@ meteor add perak:bigchaindb-collection
 In both client and server scope, instead defining your collection as `new Mongo.Collection` define it as `new BDBCollection`
 
 ```javascript
-import { BDBCollection } from "perak/bigchaindb-collection";
 
 export const Fruits = new BDBCollection("fruits");
 
@@ -48,7 +47,6 @@ export const Fruits = new BDBCollection("fruits");
 In server scope, define `BDBConnection` (not to be confused with `BDBCollection`), register your collections with the connection, provide keypair generator function and connect to BDB server:
 
 ```javascript
-import { BDBConnection } from "perak/bigchaindb-collection";
 
 import { Fruits } from "path to file where your collection is defined";
 
