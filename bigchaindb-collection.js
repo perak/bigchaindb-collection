@@ -136,7 +136,8 @@ export class BDBConnection {
 			self.socketErrorCount++;
 
 			if(self.socketErrorCount < 50) {
-				setTimeout(function() {
+				Meteor.setTimeout(function() {
+					console.log("Reconnecting...");
 					self.listenEvents();
 				}, self.socketErrorCount * 10);
 			}
