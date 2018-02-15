@@ -20,7 +20,7 @@ ejson@1.1.0
 geojson-utils@1.0.10
 http@1.4.0
 id-map@1.1.0
-local-test:perak:bigchaindb-collection@1.0.4
+local-test:perak:bigchaindb-collection@1.0.5
 logging@1.1.19
 matb33:collection-hooks@0.8.4
 meteor@1.8.2
@@ -32,7 +32,7 @@ mongo-dev-server@1.1.0
 mongo-id@1.0.6
 npm-mongo@2.2.34
 ordered-dict@1.1.0
-perak:bigchaindb-collection@1.0.4
+perak:bigchaindb-collection@1.0.5
 promise@0.10.1
 random@1.1.0
 reload@1.2.0

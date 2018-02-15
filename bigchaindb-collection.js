@@ -8,7 +8,7 @@ export class BDBConnection {
 		this.collections = {};
 		this.transactionCallbacks = [];
 		this.onKeypairRequest = null;
-		this.socketErrorCount = 0;
+		this.socketBroken = false;
 
 		this._init(options);
 	}
@@ -28,6 +28,8 @@ export class BDBConnection {
 	}
 
 	connect(options = {}, cb) {
+		var self = this;
+
 		if(options) {
 			this._init(options);
 		}
@@ -53,6 +55,13 @@ export class BDBConnection {
 
 		if(this.options.eventsUrl) {
 			this.listenEvents(cb);
+
+			Meteor.setTimeout(() => {
+				if(self.socketBroken) {
+					console.log("BDB WebSocket connection is broken. Reconnecting...");
+					self.listenEvents(cb);
+				}
+			}, 10);
 		}
 	}
 
@@ -71,6 +80,8 @@ export class BDBConnection {
 
 	listenEvents(cb) {
 		let self = this;
+
+		this.socketBroken = false;
 
 		try {
 			this.socket = new WebSocket(this.options.eventsUrl);
@@ -128,23 +139,20 @@ export class BDBConnection {
 		});
 
 		this.socket.onopen = function(e) {
-			self.socketErrorCount = 0;
 		};
 
 		this.socket.onerror = function(e) {
 			console.log("BigchainDB WebSocket error. Type: \"" + e.type + "\".");
-			self.socketErrorCount++;
-
-			if(self.socketErrorCount < 50) {
-				Meteor.setTimeout(function() {
-					console.log("Reconnecting...");
-					self.listenEvents();
-				}, self.socketErrorCount * 10);
-			}
 		};
 
 		this.socket.onclose = function(e) {
 			console.log("BigchainDB WebSocket connection closed. Code: " + e.code + ", reason: \"" + e.reason + "\".", e.code, e.reason);
+			if(e.code == 1000) {
+				// normally closed
+				return;
+			}
+
+			self.socketBroken = true;
 		};
 	}
 
