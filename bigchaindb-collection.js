@@ -56,7 +56,7 @@ export class BDBConnection {
 		if(this.options.eventsUrl) {
 			this.listenEvents(cb);
 
-			Meteor.setTimeout(() => {
+			Meteor.setInterval(() => {
 				if(self.socketBroken) {
 					console.log("BDB WebSocket connection is broken. Reconnecting...");
 					self.listenEvents(cb);
