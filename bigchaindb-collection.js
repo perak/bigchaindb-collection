@@ -9,6 +9,7 @@ export class BDBConnection {
 		this.transactionCallbacks = [];
 		this.onKeypairRequest = null;
 		this.socketBroken = false;
+		this.reconnectCount = 0;
 
 		this._init(options);
 	}
@@ -58,7 +59,10 @@ export class BDBConnection {
 
 			Meteor.setInterval(() => {
 				if(self.socketBroken) {
-					console.log("BDB WebSocket connection is broken. Reconnecting...");
+					if(!(reconnectCount % 1000)) {
+						console.log("BDB WebSocket connection is broken. Reconnecting...");
+					}
+					self.reconnectCount++;
 					self.listenEvents(cb);
 				}
 			}, 10);
@@ -80,8 +84,6 @@ export class BDBConnection {
 
 	listenEvents(cb) {
 		let self = this;
-
-		this.socketBroken = false;
 
 		try {
 			this.socket = new WebSocket(this.options.eventsUrl);
@@ -139,10 +141,14 @@ export class BDBConnection {
 		});
 
 		this.socket.onopen = function(e) {
+			self.socketBroken = false;
+			self.reconnectCount = 0;
 		};
 
 		this.socket.onerror = function(e) {
-			console.log("BigchainDB WebSocket error. Type: \"" + e.type + "\".");
+			if(!(reconnectCount % 1000)) {
+				console.log("BigchainDB WebSocket error. Type: \"" + e.type + "\".");
+			}
 		};
 
 		this.socket.onclose = function(e) {
