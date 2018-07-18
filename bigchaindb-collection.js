@@ -59,7 +59,7 @@ export class BDBConnection {
 
 			Meteor.setInterval(() => {
 				if(self.socketBroken) {
-					if(!(reconnectCount % 1000)) {
+					if(!(self.reconnectCount % 1000)) {
 						console.log("BDB WebSocket connection is broken. Reconnecting...");
 					}
 					self.reconnectCount++;
@@ -146,7 +146,7 @@ export class BDBConnection {
 		};
 
 		this.socket.onerror = function(e) {
-			if(!(reconnectCount % 1000)) {
+			if(!(self.reconnectCount % 1000)) {
 				console.log("BigchainDB WebSocket error. Type: \"" + e.type + "\".");
 			}
 		};
