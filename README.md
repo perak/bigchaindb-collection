@@ -81,4 +81,49 @@ Meteor.startup({
 And... voilà! Your application is now storing data in BigchainDB - the scalable blockchain database.
 
 
+# Appendix
+
+### Install BigchainDB 1.3.0 (dev)
+
+For your local machine or dev server use following script:
+
+```bash
+docker pull bigchaindb/bigchaindb:1.3.0
+
+docker run \
+  --interactive \
+  --rm \
+  --tty \
+  --volume $HOME/bigchaindb_docker:/data \
+  --env BIGCHAINDB_DATABASE_HOST=172.17.0.1 \
+  bigchaindb/bigchaindb:1.3.0 \
+  -y configure \
+  mongodb
+
+docker run \
+  --detach \
+  --name=mongodb \
+  --publish=27017:27017 \
+  --restart=always \
+  --volume=$HOME/mongodb_docker/db:/data/db \
+  --volume=$HOME/mongodb_docker/configdb:/data/configdb \
+  mongo:3.4.9 --replSet=bigchain-rs
+
+docker run \
+  --detach \
+  --name=bigchaindb \
+  --publish=59984:9984 \
+  --restart=always \
+  --volume=$HOME/bigchaindb_docker:/data \
+  -e "VIRTUAL_HOST=bdb.maltegra.com,deon.maltegra.com" \
+  -e "LETSENCRYPT_HOST=bdb.maltegra.com,deon.maltegra.com" \
+  -e "LETSENCRYPT_EMAIL=petar.korponaic@integrationalpha.com" \
+  bigchaindb/bigchaindb:1.3.0 \
+  start
+
+```
+
+
 *To be continued...*
+
+
