@@ -152,13 +152,16 @@ export class BDBConnection {
 		};
 
 		this.socket.onclose = function(e) {
-			console.log("BigchainDB WebSocket connection closed. Code: " + e.code + ", reason: \"" + e.reason + "\".", e.code, e.reason);
 			if(e.code == 1000) {
 				// normally closed
 				return;
+			} else {
+				if(!(self.reconnectCount % 1000)) {
+					console.log("BigchainDB WebSocket connection closed. Code: " + e.code + ", reason: \"" + e.reason + "\".", e.code, e.reason);
+				}
+				self.socketBroken = true;
 			}
 
-			self.socketBroken = true;
 		};
 	}
 
