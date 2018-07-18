@@ -115,9 +115,9 @@ docker run \
   --publish=59984:9984 \
   --restart=always \
   --volume=$HOME/bigchaindb_docker:/data \
-  -e "VIRTUAL_HOST=bdb.maltegra.com,deon.maltegra.com" \
-  -e "LETSENCRYPT_HOST=bdb.maltegra.com,deon.maltegra.com" \
-  -e "LETSENCRYPT_EMAIL=petar.korponaic@integrationalpha.com" \
+  -e "VIRTUAL_HOST=URL_AT_WHICH_THIS_BDB_IS_EXPOSED" \
+  -e "LETSENCRYPT_HOST=URL_AT_WHICH_THIS_BDB_IS_EXPOSED" \
+  -e "LETSENCRYPT_EMAIL=YOUR_EMAIL_ADDRESS" \
   bigchaindb/bigchaindb:1.3.0 \
   start
 
